@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    container_name: mqtt-broker
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    networks:
+      - mqtt-net
+
+  mongodb-primary:
+    image: mongo:latest
+    container_name: mongodb-primary
+    ports:
+      - "27017:27017"
+    networks:
+      - mongodb-network
+
+  mongodb-secondary:
+    image: mongo:latest
+    container_name: mongodb-secondary
+    ports:
+      - "27018:27017"
+    networks:
+      - mongodb-network
+
+networks:
+  mqtt-net:
+    driver: bridge
+  mongodb-network:
+    driver: bridge
